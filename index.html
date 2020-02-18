@@ -11,6 +11,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PQR6WJS');</script>
 <!-- End Google Tag Manager -->
+
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -19,6 +23,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <h1>Hello World</h1>
 <p>This is the simulated campaign landing page.</p>
+<form>
+Order ID: <input type="text" id="txtOrderID" name="txtOrderID" /><br />
+Sub Total: <input type="text" id="txtSubTotal" name="txtSubTotal" /><br />
+Category: <input type="text" id="subCategory" name="subCategory" /><br />
+SKU: <input type="text" id="txtSKU" name="txtSKU" /><br />
+Quantity: <input type="text" id="txtQuantity" name="txtQuantity" /><br />
+</form>
 <a href="/checkout.html">Checkout</a>
 </body>
+
+<script type="text/javascript">
+var orderIDNum = Math.floor(Math.random() * 100000000);
+document.getElementById("email").value = orderIDNum;
+</script>
 </html>
