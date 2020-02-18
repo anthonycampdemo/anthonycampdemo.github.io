@@ -13,7 +13,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <script type="text/javascript">
-
+function populateSale(tCat, tSKU, tQ) {
+	var orderIDNum = Math.floor(Math.random() * 100000000);
+	var subTotalNum = Math.floor(Math.random() * 10000);
+	
+	document.getElementById("txtOrderID").value = orderIDNum;
+	document.getElementById("txtSubTotal").value = subTotalNum;
+	document.getElementById("txtCategory").value = tCat;
+	document.getElementById("txtSKU").value = tSKU;
+	document.getElementById("txtQuantity").value = tQ;
+	
+	localStorage.setItem("txtOrderID", orderIDNum);
+	localStorage.setItem("txtSubTotal", subTotalNum);
+	localStorage.setItem("txtCategory", tCat);
+	localStorage.setItem("txtSKU", tSKU);
+	localStorage.setItem("txtQuantity", tQ);
+}
 </script>
 </head>
 <body>
@@ -26,15 +41,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <form>
 Order ID: <input type="text" id="txtOrderID" name="txtOrderID" /><br />
 Sub Total: <input type="text" id="txtSubTotal" name="txtSubTotal" /><br />
-Category: <input type="text" id="subCategory" name="subCategory" /><br />
+Category: <input type="text" id="txtCategory" name="txtCategory" /><br />
 SKU: <input type="text" id="txtSKU" name="txtSKU" /><br />
 Quantity: <input type="text" id="txtQuantity" name="txtQuantity" /><br />
 </form>
+<button type="button" onclick="populateSale('Standard Models', 'Compact', 2);">Compact</button>
+<button type="button" onclick="populateSale('Special Models', 'Special Color', 3);">Special Color</button>
+<button type="button" onclick="populateSale('Gift Packages', 'Collection', 4);">Collection</button>
+<button type="button" onclick="populateSale('Hypercar', 'Koenigsegg', 5);">Koenigsegg</button>
+<br />
 <a href="/checkout.html">Checkout</a>
 </body>
-
-<script type="text/javascript">
-var orderIDNum = Math.floor(Math.random() * 100000000);
-document.getElementById("txtOrderID").value = orderIDNum;
-</script>
 </html>

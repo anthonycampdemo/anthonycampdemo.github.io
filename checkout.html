@@ -2,7 +2,30 @@
 <html>
 <head>
 <script>
-  dataLayer = [];
+dataLayer = [];
+
+var tOID, tCID, tST, tCat, tSKU, tQ;
+
+try {
+	tOID = localStorage.getItem("txtOrderID");
+	tST = localStorage.getItem("txtSubTotal");
+	tCat = localStorage.getItem("txtCategory");
+	tSKU = localStorage.getItem("txtSKU");
+	tQ = localStorage.getItem("txtQuantity");
+
+	dataLayer.push({
+		'txtOrderID': tOID
+		'txtItems': [{
+			'txtSubTotal': tST,
+			'txtCategory': tCat,
+			'txtSKU': tSKU,
+			'txtQuantity': tQ
+		}]
+	});
+}
+catch(err) {
+	console.log("Error: No order details to Check-Out.");
+}
 </script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
