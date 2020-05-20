@@ -4,7 +4,7 @@
 <script>
 dataLayer = [];
 
-var tOID, tCID, tST, tCat, tSKU, tQ;
+var tOID, tCID, tST, tCat, tSKU, tQ, tPromo;
 
 try {
 	tOID = localStorage.getItem("txtOrderID");
@@ -12,9 +12,11 @@ try {
 	tCat = localStorage.getItem("txtCategory");
 	tSKU = localStorage.getItem("txtSKU");
 	tQ = localStorage.getItem("txtQuantity");
+	tPromo = localStorage.getItem("txtPromo");
 
 	dataLayer.push({
 		'txtOrderID': tOID,
+		'txtPromo': tPromo,
 		'txtItems': [{
 			'txtSubTotal': tST,
 			'txtCategory': tCat,

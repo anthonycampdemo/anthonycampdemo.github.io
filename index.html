@@ -13,7 +13,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <title>Test Site | This is the simulated campaign landing page.</title>
 <script type="text/javascript">
-function populateSale(tCat, tSKU, tQ) {
+function populateSale(tCat, tSKU, tQ, tPromo) {
 	var orderIDNum = Math.floor(Math.random() * 100000000);
 	var subTotalNum = Math.floor(Math.random() * 10000);
 	
@@ -22,12 +22,14 @@ function populateSale(tCat, tSKU, tQ) {
 	document.getElementById("txtCategory").value = tCat;
 	document.getElementById("txtSKU").value = tSKU;
 	document.getElementById("txtQuantity").value = tQ;
+	document.getElementById("txtPromo").value = tPromo;
 	
 	localStorage.setItem("txtOrderID", orderIDNum);
 	localStorage.setItem("txtSubTotal", subTotalNum);
 	localStorage.setItem("txtCategory", tCat);
 	localStorage.setItem("txtSKU", tSKU);
 	localStorage.setItem("txtQuantity", tQ);
+	localStorage.setItem("txtPromo", tPromo);
 }
 </script>
 </head>
@@ -44,11 +46,12 @@ Sub Total: <input type="text" id="txtSubTotal" name="txtSubTotal" /><br />
 Category: <input type="text" id="txtCategory" name="txtCategory" /><br />
 SKU: <input type="text" id="txtSKU" name="txtSKU" /><br />
 Quantity: <input type="text" id="txtQuantity" name="txtQuantity" /><br />
+Promo Code: <input type="text" id="txtPromo" name="txtPromo" /><br />
 </form>
-<button type="button" onclick="populateSale('Standard Models', 'Compact', 2);">Compact</button>
-<button type="button" onclick="populateSale('Special Models', 'Special Color', 3);">Special Color</button>
-<button type="button" onclick="populateSale('Gift Packages', 'Collection', 4);">Collection</button>
-<button type="button" onclick="populateSale('Hypercar', 'Koenigsegg', 5);">Koenigsegg</button>
+<button type="button" onclick="populateSale('Standard Models', 'Compact', 2, '5OFF');">Compact</button>
+<button type="button" onclick="populateSale('Special Models', 'Special Color', 3, 'BOGO');">Special Color</button>
+<button type="button" onclick="populateSale('Gift Packages', 'Collection', 4, 'FREEGIFT');">Collection</button>
+<button type="button" onclick="populateSale('Hypercar', 'Koenigsegg', 5, 'HOLIDAYSPECIAL');">Koenigsegg</button>
 <br />
 <a href="/checkout.html">Checkout</a><br /><br />
 <a href="/datalayertest.html">Login test</a>
