@@ -17,7 +17,7 @@ function populateCustId() {
 	var custIDNum = Math.floor(Math.random() * 1000000000);
 	
 	document.getElementById("txtCustID").value = custIDNum;
-	localStorage.setItem("txtCustID", orderIDNum);
+	localStorage.setItem("txtCustID", custIDNum);
 };
 function login() {
 	dataLayer.push({'customerId': document.getElementById('txtCustID').value,'customerEmail': document.getElementById('txtCustEmail').value});
