@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript"> (function(a,b,c,d,e,f,g){e['ire_o']=c;e[c]=e[c]||function(){(e[c].a=e[c].a||[]).push(arguments)};f=d.createElement(b);g=d.getElementsByTagName(b)[0];f.async=1;f.src=a;g.parentNode.insertBefore(f,g);})('//d.impactradius-event.com/A2061713-8c6d-4b06-b4c9-fcc4bf22bce365535.js','script','ire',document,window); dataLayer.push({'event': 'UTTLoaded'}); </script>
+    <script>
+        function() {
+            if(localStorage.getItem('_ir_clickid') != null){
+                var custId = localStorage.getItem('_ir_clickid');
+                return custId;
+            }
+        }
+    </script>
+    <title>Checkout Page v2 Test</title>
+</head>
+<body>
+<h1>Checkout Page v2 Test</h1>
+<p>This is the simulated Checkout page confirming purchase is successful.</p>
+<!--
+Impact Universal Tracking Tag required to be installed on the page.
+Removal or modification of this code will disrupt marketing activities. This code is property of Impact, please do not remove or modify without first contacting Impact Technical Services.
+-->
+<script type="text/javascript">
+const urlParams = new URLSearchParams(window.location.search);
+const irclickid = urlParams.get('irclickid');
+
+if (irclickid) {
+    items = [];
+    items.push({
+        "category": "Category",
+        "quantity": 1,
+        "sku": "SKU",
+        "subTotal": 100
+    });
+    
+    orderIDNum = Math.floor(Math.random() * 100000000);
+    ire('trackConversion', 19994, {
+            'orderId': orderIDNum,
+            'clickid': irclickid,
+            'items': items
+    });
+}
+</script>
+</body>
+</html>
