@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Impact.com Support</title>
+<script type="text/javascript">
+function generateSupportLink() {
+	var txtLink = "https://app.impact.com/secure/grantTempSupportAccess.ihtml?clientId=".concat(document.getElementById("txtAccountID").value);
+    document.getElementById("lnkSupport").innerHTML = txtLink;
+    navigator.clipboard.writeText(txtLink);
+}
+</script>
+</head>
+<body>
+<h1>Support Link Generator</h1>
+<form>
+Account ID: <input type="text" id="txtAccountID" name="txtAccountID" /><br />
+</form>
+<button type="button" onclick="generateSupportLink();">Generate Support Link</button>
+<br />
+<div id="lnkSupport" name="lnkSupport">Support Link</a><br /><br />
+</body>
+</html>
