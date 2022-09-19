@@ -6,7 +6,8 @@
 function generateSupportLink() {
 	var txtLink = "https://app.impact.com/secure/grantTempSupportAccess.ihtml?clientId=".concat(document.getElementById("txtAccountID").value);
     document.getElementById("lnkSupport").innerHTML = txtLink;
-    navigator.clipboard.writeText(txtLink);
+    // navigator.clipboard.writeText(txtLink);
+    window.open(txtLink, "_blank");
 }
 </script>
 </head>
