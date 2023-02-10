@@ -28,14 +28,12 @@ orderIDNum = Math.floor(Math.random() * 100000000);
 if (customerId > 0){
     ire('trackConversion', 19994, {
             'orderId': orderIDNum,
-            'clickid': irclickid,
             'items': items
     }, {verifySiteDefinitionMatch:true});
 }
 else {
     ire('trackConversion', 19994, {
             'orderId': orderIDNum,
-            'clickid': irclickid,
             'items': items
     }, {verifySiteDefinitionMatch:true});
 }
