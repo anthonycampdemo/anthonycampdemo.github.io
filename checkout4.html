@@ -3,40 +3,65 @@
 <head>
     <script>dataLayer = [];</script>
     <script type="text/javascript"> (function(a,b,c,d,e,f,g){e['ire_o']=c;e[c]=e[c]||function(){(e[c].a=e[c].a||[]).push(arguments)};f=d.createElement(b);g=d.getElementsByTagName(b)[0];f.async=1;f.src=a;g.parentNode.insertBefore(f,g);})('//d.impactradius-event.com/A2061713-8c6d-4b06-b4c9-fcc4bf22bce365535.js','script','ire',document,window); dataLayer.push({'event': 'UTTLoaded'}); </script>
-    <title>Checkout Page v3 Test</title>
+    <title>Checkout Page v4 Test</title>
 </head>
 <body>
-<h1>Checkout Page v3 Test</h1>
+<h1>Checkout Page v4 Test</h1>
 <p>This is the simulated Checkout page confirming purchase is successful.</p>
 <!--
 Impact Universal Tracking Tag required to be installed on the page.
 Removal or modification of this code will disrupt marketing activities. This code is property of Impact, please do not remove or modify without first contacting Impact Technical Services.
 -->
 <script>
-    ire('identify', {'customerId': "", 'customerEmail': ""});
+    ire('identify');
 </script>
 <script type="text/javascript">
-items = [];
-items.push({
-    "category": "Category",
-    "quantity": 1,
-    "sku": "SKU",
-    "subTotal": 100
-});
-
-orderIDNum = Math.floor(Math.random() * 100000000);
-if (customerId > 0){
+    DataLayer = {
+        user: {
+            ID: "CustomerId1",
+            voucherCode: "PromoCode1",
+            voucherDiscount: "10.00"
+        },
+        transaction: {
+            transactionID: "OrderNumber1",
+            currency: "SGD"
+        },
+        products: [
+            {
+                productCategory: "productCategory1",
+                unit: "1",
+                sku: "sku-1111",
+                productName: "productName1",
+                price: "159.00"
+            },
+            {
+                productCategory: "productCategory2",
+                unit: "2",
+                sku: "sku-2222",
+                productName: "productName2",
+                price: "139.00"
+            }
+        ]
+    };
+    items = [];
+    for (var nItems = 0; nItems < DataLayer.products.length; nItems++) {
+        items.push({
+            category: DataLayer.products[nItems].productCategory,
+            quantity: DataLayer.products[nItems].unit,
+            sku: DataLayer.products[nItems].sku,
+            name: DataLayer.products[nItems].productName,
+            subTotal: DataLayer.products[nItems].price * DataLayer.products[nItems].unit
+        });
+    }
+    
     ire('trackConversion', 19994, {
-            'orderId': orderIDNum,
-            'items': items
+        orderId: DataLayer.transaction.transactionID,
+        customerId: DataLayer.user.ID > 0 ? DataLayer.user.ID : "",
+        currencyCode: DataLayer.transaction.currency,
+        orderPromoCode: DataLayer.user.voucherCode > 0 ? DataLayer.user.voucherCode : "",
+        orderDiscount: DataLayer.user.voucherDiscount > 0 ? DataLayer.user.voucherDiscount : "",
+        'items': items
     }, {verifySiteDefinitionMatch:true});
-}
-else {
-    ire('trackConversion', 19994, {
-            'orderId': orderIDNum,
-            'items': items
-    }, {verifySiteDefinitionMatch:true});
-}
 </script>
 </body>
 </html>
