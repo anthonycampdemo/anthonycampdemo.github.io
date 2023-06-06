@@ -9,9 +9,9 @@ function generateSupportLink() {
     navigator.clipboard.writeText(txtLink);
 }
 function generateResyncUTTLink() {
-	var txtLink = "https://app.impact.com/secure/none/syncUniversalTracking.ihtml?a=".concat(document.getElementById("txtAccountID").value);
-    document.getElementById("lnkResyncUTT").innerHTML = txtLink;
-    navigator.clipboard.writeText(txtLink);
+	var txtUTTLink = "https://app.impact.com/secure/none/syncUniversalTracking.ihtml?a=".concat(document.getElementById("txtAccountID").value);
+    document.getElementById("lnkResyncUTT").innerHTML = txtUTTLink;
+    navigator.clipboard.writeText(txtUTTLink);
 }
 </script>
 </head>
@@ -22,10 +22,10 @@ function generateResyncUTTLink() {
     <hr />
     <button type="button" onclick="generateSupportLink();">Generate Support Link</button>
     <br />
-    <div id="lnkSupport" name="lnkSupport">Support Link</a><br /><br />
+    <div id="lnkSupport" name="lnkSupport">Support Link</div><br /><br />
     <hr />
     <button type="button" onclick="generateResyncUTTLink();">Generate Resync UTT Link</button>
     <br />
-    <div id="lnkResyncUTT" name="lnkResyncUTT">Resync UTT Link</a><br /><br />
+    <div id="lnkResyncUTT" name="lnkResyncUTT">Resync UTT Link</div><br /><br />
 </body>
 </html>
