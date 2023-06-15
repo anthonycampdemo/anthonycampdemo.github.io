@@ -8,15 +8,24 @@ function generateSupportLink() {
     document.getElementById("lnkSupport").innerHTML = txtLink;
     navigator.clipboard.writeText(txtLink);
 }
+function generateResyncUTTLink() {
+	var txtUTTLink = "https://app.impact.com/secure/none/syncUniversalTracking.ihtml?a=".concat(document.getElementById("txtAccountID").value);
+    document.getElementById("lnkResyncUTT").innerHTML = txtUTTLink;
+    navigator.clipboard.writeText(txtUTTLink);
+}
 </script>
 </head>
 <body>
-<h1>Support Link Generator</h1>
-<form>
-Account ID: <input type="text" id="txtAccountID" name="txtAccountID" /><br />
-</form>
-<button type="button" onclick="generateSupportLink();">Generate Support Link</button>
-<br />
-<div id="lnkSupport" name="lnkSupport">Support Link</a><br /><br />
+    <form>
+    Account ID: <input type="text" id="txtAccountID" name="txtAccountID" /><br />
+    </form>
+    <hr />
+    <button type="button" onclick="generateSupportLink();">Generate Support Link</button>
+    <br />
+    <div id="lnkSupport" name="lnkSupport">Support Link</div><br /><br />
+    <hr />
+    <button type="button" onclick="generateResyncUTTLink();">Generate Resync UTT Link</button>
+    <br />
+    <div id="lnkResyncUTT" name="lnkResyncUTT">Resync UTT Link</div><br /><br />
 </body>
 </html>
