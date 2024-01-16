@@ -8,6 +8,11 @@ function generateSupportLink() {
     document.getElementById("lnkSupport").innerHTML = txtLink;
     navigator.clipboard.writeText(txtLink);
 }
+function generateDemoSupportLink() {
+	var txtLink = "https://demo.impact.com/secure/grantTempSupportAccess.ihtml?clientId=".concat(document.getElementById("txtAccountID").value);
+    document.getElementById("lnkDemoSupport").innerHTML = txtLink;
+    navigator.clipboard.writeText(txtLink);
+}
 function generateResyncUTTLink() {
 	var txtUTTLink = "https://app.impact.com/secure/none/syncUniversalTracking.ihtml?a=".concat(document.getElementById("txtAccountID").value);
     document.getElementById("lnkResyncUTT").innerHTML = txtUTTLink;
@@ -20,12 +25,16 @@ function generateResyncUTTLink() {
     Account ID: <input type="text" id="txtAccountID" name="txtAccountID" /><br />
     </form>
     <hr />
-    <button type="button" onclick="generateSupportLink();">Generate Support Link</button>
+    <button type="button" onclick="generateSupportLink();">Generate App Support Link</button>
     <br />
-    <div id="lnkSupport" name="lnkSupport">Support Link</div><br /><br />
+    App Support Link: <div id="lnkSupport" name="lnkSupport">__</div><br /><br />
+    <hr />
+    <button type="button" onclick="generateDemoSupportLink();">Generate Demo Support Link</button>
+    <br />
+    Demo Support Link: <div id="lnkDemoSupport" name="lnkDemoSupport">__</div><br /><br />
     <hr />
     <button type="button" onclick="generateResyncUTTLink();">Generate Resync UTT Link</button>
     <br />
-    <div id="lnkResyncUTT" name="lnkResyncUTT">Resync UTT Link</div><br /><br />
+    Resync UTT Link: <div id="lnkResyncUTT" name="lnkResyncUTT">__</div><br /><br />
 </body>
 </html>
