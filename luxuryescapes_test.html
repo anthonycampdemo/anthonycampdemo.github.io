@@ -16,11 +16,35 @@
     <p><h1><a href="luxuryescapes://0062y00000IeYB1AAN">URI Test</a></h1></p>
     <p><h1><a href="luxuryescapes://royal-senses-resort-and-spa-curio-collection-by-hilton-crete-greece-europe/0062y00000IeYB1AAN">URI Test</a></h1></p>
     <p><h1><a href="luxuryescapes://gb/offer/royal-senses-resort-and-spa-curio-collection-by-hilton-crete-greece-europe/0062y00000IeYB1AAN">URI Test</a></h1></p>
-    <p><h1><a href="luxuryescapes://luxuryescapes.com/gb/offer/royal-senses-resort-and-spa-curio-collection-by-hilton-crete-greece-europe/0062y00000IeYB1AAN">URI Test</a></h1></p>
+    <p><h1><a href="luxuryescapes://luxuryescapes.com/gb/offer/0062y00000IeYB1AAN">URI Test</a></h1></p>
 </body>
  
 </html>
 
+<!-- 
+https://luxuryescapes.sjv.io/c/391269/1991376/23356?subid1=more-campaign&u=https%3A%2F%2Fluxuryescapes.com%2Fgb%2Foffer%2F0062y00000IeYB1AAN&level=1&brwsr=02b6da70-27bb-11ef-90fa-53cb1fb7b8db&brwsrsig=QrbRv53Dk27F3e5yL4w2iQc2xhZV51 
 
+We want this: https%3A%2F%2Fluxuryescapes.com%2Fgb%2Foffer%2F0062y00000IeYB1AAN
+Onelink: impact-lux.onelink.me/ywpW?pid=impactradius_int&af_siteid={irpid}&c={iradname}&af_c_id={iradid}&af_sub_siteid={irmpname}&af_click_lookback=7d&clickid={clickid}&af_media_type=web&idfa={appleifa}&advertising_id={googleaid}
+
+To deeplink: we need to add 5 things
+-- Try to open the app if it's installed
+1) &af_force_deeplink=true
+2) &af_dp=luxuryescapes://
+>> &af_dp={if(gwlurl,replace(gwlurl,"https%3A%2F%2F","luxuryescapes%3A%2F%2F"),"luxuryescapes%3A%2F%2F")}
+
+-- if app is not installed, where do we send the customer?
+3) &af_android_url={gwlurl}
+4) &af_ios_url={gwlurl}
+
+-- When it's on desktop, where do we send the customer?
+5) &af_web_url={gwlurl}
+
+app.appsflyer.com/blibli.mobile.commerce?pid=impactradius_int&af_siteid={irpid}&c={iradname}&af_c_id={iradid}&af_sub_siteid={irmpname}&is_retargeting=true&af_reengagement_window=30d&af_click_lookback=1d&clickid={clickid}&af_media_type=web&af_android_url={gwlurl}&af_param_forwarding=false
+blibli.onelink.me/3406673693?pid=impactradius_int&af_siteid={irpid}&c={iradname}&af_c_id={ircid}&af_sub_siteid={irmpname}&is_retargeting=true&af_dp={if(gwlurl,replace(gwlurl,"https%3A%2F%2Fwww\.blibli\.com%2F","blibli%3A%2F%2F"),"blibli%3A%2F%2Fhome")}&af_reengagement_window=30d&af_click_lookback=1d&clickid={clickid}&af_media_type=web
+
+Change Onelink to: 
+impact-lux.onelink.me/ywpW?pid=impactradius_int&af_siteid={irpid}&c={iradname}&af_c_id={iradid}&af_sub_siteid={irmpname}&af_click_lookback=7d&clickid={clickid}&af_media_type=web&idfa={appleifa}&advertising_id={googleaid}&af_force_deeplink=true&af_dp={if(gwlurl,replace(gwlurl,"https%3A%2F%2F","luxuryescapes%3A%2F%2F"),"luxuryescapes%3A%2F%2F")}&af_android_url={gwlurl}&af_ios_url={gwlurl}
+-->
 
 
