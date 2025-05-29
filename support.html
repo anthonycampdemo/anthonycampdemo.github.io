@@ -20,8 +20,8 @@ function generateResyncUTTLink() {
 }
 function generateOperatorBillingLink() {
 	var txtOperatorBilling = "https://operator.impactradius.net/secure/operator/report/secure/operator/advertiser/billing-home-flow.irop?irAccountId=".concat(document.getElementById("txtAccountID").value);
-    document.getElementById("lnkOperatorBilling").innerHTML = txtUTTLink;
-    navigator.clipboard.writeText(txtUTTLink);
+    document.getElementById("lnkOperatorBilling").innerHTML = txtOperatorBilling;
+    navigator.clipboard.writeText(txtOperatorBilling);
 }
 </script>
 </head>
