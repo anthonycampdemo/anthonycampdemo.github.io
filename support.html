@@ -18,6 +18,11 @@ function generateResyncUTTLink() {
     document.getElementById("lnkResyncUTT").innerHTML = txtUTTLink;
     navigator.clipboard.writeText(txtUTTLink);
 }
+function generateOperatorBillingLink() {
+	var txtOperatorBilling = "https://operator.impactradius.net/secure/operator/report/secure/operator/advertiser/billing-home-flow.irop?irAccountId=".concat(document.getElementById("txtAccountID").value);
+    document.getElementById("lnkOperatorBilling").innerHTML = txtUTTLink;
+    navigator.clipboard.writeText(txtUTTLink);
+}
 </script>
 </head>
 <body>
@@ -36,5 +41,9 @@ function generateResyncUTTLink() {
     <button type="button" onclick="generateResyncUTTLink();">Generate Resync UTT Link</button>
     <br />
     Resync UTT Link: <div id="lnkResyncUTT" name="lnkResyncUTT">__</div><br /><br />
+    <hr />
+    <button type="button" onclick="generateOperatorBillingLink();">Operator Billing Link</button>
+    <br />
+    Resync UTT Link: <div id="lnkOperatorBilling" name="lnkOperatorBilling">__</div><br /><br />
 </body>
 </html>
