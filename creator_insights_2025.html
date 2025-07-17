@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Draw Name Chooser</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and basic body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+        }
+        /* Animation for winner display */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .animate-winner {
+            animation: fadeInScale 0.5s ease-out forwards;
+        }
+        /* Basic styling for the spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6; /* Blue spinner */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-6xl border border-gray-200">
+        <!-- Logo Image -->
+        <div class="flex justify-center mb-6">
+            <img src="https://influencermarketinghub.com/wp-content/uploads/2022/08/image-14.png" alt="Creator Insights Logo" class="w-64 h-auto rounded-lg shadow-md">
+        </div>
+
+        <h1 class="text-4xl font-extrabold text-center text-pink-700 mb-6 tracking-tight">
+            Creator Insights 2025 Demo Corner Lucky Draw
+        </h1>
+        <p class="text-center text-gray-600 mb-8 text-lg">
+            Register your name here for the lucky draw and get the chance to win <strong>
+                $200SGD!</strong>
+        </p>
+
+        <!-- Main content area: Two columns on medium and larger screens -->
+        <div class="flex flex-col md:flex-row gap-8 mt-8">
+
+            <!-- Left Column: Registration and Participant List -->
+            <div class="flex-1 flex flex-col">
+                <!-- Input Area for Name, Email, and Company Type -->
+                <div class="mb-4">
+                    <label for="participantNameInput" class="block text-gray-800 text-lg font-semibold mb-2">
+                        Participant Name:
+                    </label>
+                    <input type="text" id="participantNameInput" placeholder="Enter name"
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-200 ease-in-out text-base">
+                </div>
+                <div class="mb-4">
+                    <label for="participantEmailInput" class="block text-gray-800 text-lg font-semibold mb-2">
+                        Participant Email:
+                    </label>
+                    <input type="email" id="participantEmailInput" placeholder="Enter email address"
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-200 ease-in-out text-base">
+                </div>
+                <div class="mb-6">
+                    <label for="companyTypeInput" class="block text-gray-800 text-lg font-semibold mb-2">
+                        Company Type:
+                    </label>
+                    <select id="companyTypeInput"
+                            class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-200 ease-in-out text-base bg-white">
+                        <option value="">Select Company Type</option>
+                        <option value="Client">Client</option>
+                        <option value="Brand (not an impact.com client)">Brand (not an impact.com client)</option>
+                        <option value="Agency">Agency</option>
+                        <option value="Creator">Creator</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+
+                <!-- Register Button -->
+                <div class="mb-6">
+                    <button id="registerButton"
+                            class="w-full bg-purple-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                        Register
+                    </button>
+                </div>
+
+                <!-- Registered Participants List -->
+                <div class="mb-8 flex-1">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Registered Participants (<span id="participantCount">0</span>)</h2>
+                    <div id="participantsList" class="bg-gray-50 border border-gray-200 rounded-lg p-4 max-h-60 overflow-y-auto">
+                        <p id="noParticipantsMessage" class="text-gray-500 text-center">No participants registered yet.</p>
+                        <!-- Participants will be listed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Draw, Reset, Winner Display, and Export Button -->
+            <div class="flex-1 flex flex-col">
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                    <button id="drawButton"
+                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center justify-center">
+                        <span id="drawButtonText">Draw Winner!</span>
+                        <div id="spinner" class="spinner ml-2"></div>
+                    </button>
+                    <button id="resetButton"
+                            class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-400">
+                        Reset All
+                    </button>
+                </div>
+
+                <!-- Winner Display Area -->
+                <div id="winnerDisplay"
+                     class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 text-center min-h-[100px] flex items-center justify-center flex-col flex-grow mb-8">
+                    <p id="winnerName" class="text-3xl font-extrabold text-blue-800 animate-winner hidden">
+                        <!-- Winner name will appear here -->
+                    </p>
+                    <p id="initialMessage" class="text-xl text-gray-600">
+                        Click "Draw Winner!" to pick a name.
+                    </p>
+                </div>
+
+                <!-- Export to CSV Button - Smaller and at the bottom right -->
+                <div class="flex justify-end mt-auto"> <!-- mt-auto pushes it to the bottom -->
+                    <button id="exportCsvButton"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md text-sm transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                        Export
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Box for alerts -->
+        <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+                <p id="messageText" class="text-lg font-semibold mb-4"></p>
+                <button id="messageBoxClose" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to DOM elements
+        const participantNameInput = document.getElementById('participantNameInput');
+        const participantEmailInput = document.getElementById('participantEmailInput');
+        const companyTypeInput = document.getElementById('companyTypeInput');
+        const registerButton = document.getElementById('registerButton');
+        const participantsList = document.getElementById('participantsList');
+        const participantCount = document.getElementById('participantCount');
+        const noParticipantsMessage = document.getElementById('noParticipantsMessage');
+        const drawButton = document.getElementById('drawButton');
+        const resetButton = document.getElementById('resetButton');
+        const exportCsvButton = document.getElementById('exportCsvButton');
+        const winnerDisplay = document.getElementById('winnerDisplay');
+        const winnerName = document.getElementById('winnerName');
+        const initialMessage = document.getElementById('initialMessage');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const messageBoxClose = document.getElementById('messageBoxClose');
+        const spinner = document.getElementById('spinner');
+        const drawButtonText = document.getElementById('drawButtonText');
+
+        // Array to store registered participants
+        let participants = [];
+
+        // Function to show a custom message box instead of alert()
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Event listener for closing the message box
+        messageBoxClose.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
+
+        // Function to validate email format
+        function isValidEmail(email) {
+            // Basic regex for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Function to render the list of participants
+        function renderParticipantsList() {
+            participantsList.innerHTML = ''; // Clear existing list
+            if (participants.length === 0) {
+                noParticipantsMessage.classList.remove('hidden');
+                participantsList.appendChild(noParticipantsMessage);
+            } else {
+                noParticipantsMessage.classList.add('hidden');
+                participants.forEach((p, index) => {
+                    const participantItem = document.createElement('div');
+                    participantItem.classList.add('flex', 'justify-between', 'items-center', 'py-2', 'px-3', 'border-b', 'border-gray-100', 'last:border-b-0');
+                    participantItem.innerHTML = `
+                        <div>
+                            <p class="font-medium text-gray-700">${p.name}</p>
+                            <p class="text-sm text-gray-500">${p.email}</p>
+                            <p class="text-xs text-gray-400">${p.companyType ? p.companyType : 'N/A'}</p>
+                        </div>
+                        <button data-index="${index}" class="remove-participant-btn text-red-500 hover:text-red-700 text-sm font-semibold">Remove</button>
+                    `;
+                    participantsList.appendChild(participantItem);
+                });
+            }
+            participantCount.textContent = participants.length;
+
+            // Add event listeners to newly created remove buttons
+            document.querySelectorAll('.remove-participant-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const indexToRemove = parseInt(event.target.dataset.index);
+                    participants.splice(indexToRemove, 1); // Remove participant from array
+                    renderParticipantsList(); // Re-render the list
+                });
+            });
+        }
+
+        // Event listener for registering a participant
+        registerButton.addEventListener('click', async () => { // Made async to use await
+            const name = participantNameInput.value.trim();
+            const email = participantEmailInput.value.trim();
+            const companyType = companyTypeInput.value; // Get value from select
+
+            if (!name) {
+                showMessageBox('Please enter the participant\'s name!');
+                return;
+            }
+            if (!email) {
+                showMessageBox('Please enter the participant\'s email!');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                showMessageBox('Please enter a valid email address!');
+                return;
+            }
+            if (!companyType) { // Validate if a company type is selected
+                showMessageBox('Please select a company type!');
+                return;
+            }
+
+            // Check for duplicate email locally before sending to sheet
+            if (participants.some(p => p.email === email)) {
+                showMessageBox('This email address is already registered!');
+                return;
+            }
+
+            // Add participant to the array locally for immediate UI update
+            // This is a temporary addition until confirmed by Google Sheet
+            participants.push({ name: name, email: email, companyType: companyType });
+            renderParticipantsList(); // Update local list immediately
+
+            // Prepare data to send to Google Apps Script
+            const registrationData = {
+                name: name,
+                email: email,
+                companyType: companyType
+            };
+
+            // Disable button and show spinner during submission
+            registerButton.disabled = true;
+            spinner.style.display = 'block'; // Using the main spinner for registration
+            drawButton.disabled = true; // Also disable draw button to prevent conflicts during registration
+            resetButton.disabled = true; // Also disable reset button
+
+            try {
+                const appsScriptUrl = 'https://anthonycampdemo.github.io/'; // <<< PASTE YOUR APPS SCRIPT URL HERE
+                const response = await fetch(appsScriptUrl, {
+                    method: 'POST',
+                    mode: 'cors', // Required for cross-origin requests
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registrationData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessageBox('Participant registered successfully and saved to Google Sheet!');
+                    // Clear input fields only after successful submission to sheet
+                    participantNameInput.value = '';
+                    participantEmailInput.value = '';
+                    companyTypeInput.value = ''; // Reset select to default option
+                } else {
+                    showMessageBox('Failed to register participant: ' + (result.message || 'Unknown error.'));
+                    // If registration failed, remove the participant from the local list
+                    participants.pop();
+                    renderParticipantsList();
+                }
+            } catch (error) {
+                showMessageBox('Error connecting to registration service. Check console for details.');
+                console.error('Error sending data to Apps Script:', error);
+                // Remove the last added participant from local array if fetch failed
+                participants.pop();
+                renderParticipantsList();
+            } finally {
+                // Re-enable buttons and hide spinner
+                registerButton.disabled = false;
+                drawButton.disabled = false;
+                resetButton.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+
+        // Function to handle the lucky draw
+        drawButton.addEventListener('click', () => {
+            // Filter participants to include only "Brand (not an impact.com client)" company types
+            const brandParticipants = participants.filter(p => p.companyType === 'Brand (not an impact.com client)');
+            let participantsForDraw = [];
+            let drawMessage = '';
+
+            if (brandParticipants.length > 0) {
+                // If there are "Brand" participants, only draw from them
+                participantsForDraw = brandParticipants;
+                drawMessage = 'Drawing winner from "Brand (not an impact.com client)" participants...';
+            } else {
+                // If no "Brand" participants, draw from all participants
+                participantsForDraw = participants;
+                drawMessage = 'No "Brand (not an impact.com client)" participants registered. Drawing winner from all registered participants...';
+            }
+
+            // Check if there are any participants at all to draw from
+            if (participantsForDraw.length === 0) {
+                showMessageBox('No participants registered yet. Please register participants before drawing!');
+                return; // Exit the function if no names are entered
+            }
+
+            // Disable buttons and show spinner during the draw process
+            drawButton.disabled = true;
+            resetButton.disabled = true;
+            registerButton.disabled = true; // Disable register button during draw
+            exportCsvButton.disabled = true; // Disable export button during draw
+            spinner.style.display = 'block';
+            drawButtonText.textContent = 'Drawing...';
+            winnerName.classList.add('hidden'); // Hide winner name during draw
+            initialMessage.classList.remove('hidden'); // Show initial message or clear previous winner text
+            initialMessage.textContent = drawMessage; // Update message based on draw type
+
+            // Simulate a short delay for visual effect
+            setTimeout(() => {
+                // Generate a random index from the chosen list of participants
+                const randomIndex = Math.floor(Math.random() * participantsForDraw.length);
+                // Get the lucky winner's name from the eligible list
+                const luckyWinner = participantsForDraw[randomIndex].name;
+
+                // Display the winner
+                winnerName.textContent = luckyWinner;
+                winnerName.classList.remove('hidden'); // Make winner name visible
+                winnerName.classList.add('animate-winner'); // Add animation class
+                initialMessage.classList.add('hidden'); // Hide initial message
+
+                // Re-enable buttons and hide spinner
+                drawButton.disabled = false;
+                resetButton.disabled = false;
+                registerButton.disabled = false; // Re-enable register button
+                exportCsvButton.disabled = false; // Re-enable export button
+                spinner.style.display = 'none';
+                drawButtonText.textContent = 'Draw Winner!';
+
+            }, 1500); // 1.5 seconds delay
+        });
+
+        // Function to export participants to CSV
+        exportCsvButton.addEventListener('click', () => {
+            if (participants.length === 0) {
+                showMessageBox('No participants to export!');
+                return;
+            }
+
+            const headers = ['Name', 'Email', 'Company Type'];
+            const rows = participants.map(p => [p.name, p.email, p.companyType || '']); // Handle undefined companyType
+
+            let csvContent = headers.join(',') + '\n'; // Add headers
+            rows.forEach(row => {
+                csvContent += row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',') + '\n'; // Enclose fields in quotes and escape existing quotes
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', 'lucky_draw_participants.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showMessageBox('Participants data exported to lucky_draw_participants.csv!');
+        });
+
+
+        // Function to reset the application
+        resetButton.addEventListener('click', () => {
+            participants = []; // Clear all registered participants
+            renderParticipantsList(); // Re-render the empty list
+            participantNameInput.value = '';
+            participantEmailInput.value = '';
+            companyTypeInput.value = ''; // Reset select to default option on reset
+            winnerName.textContent = ''; // Clear the winner display
+            winnerName.classList.add('hidden'); // Hide winner name
+            winnerName.classList.remove('animate-winner'); // Remove animation class
+            initialMessage.classList.remove('hidden'); // Show initial message
+            initialMessage.textContent = 'Click "Draw Winner!" to pick a name.'; // Reset initial message
+            drawButton.disabled = false; // Ensure draw button is enabled
+            resetButton.disabled = false; // Ensure reset button is enabled
+            registerButton.disabled = false; // Ensure register button is enabled
+            exportCsvButton.disabled = false; // Ensure export button is enabled
+            spinner.style.display = 'none'; // Hide main spinner
+            drawButtonText.textContent = 'Draw Winner!'; // Reset button text
+        });
+
+        // Initial render of the participants list
+        renderParticipantsList();
+    </script>
+</body>
+</html>
